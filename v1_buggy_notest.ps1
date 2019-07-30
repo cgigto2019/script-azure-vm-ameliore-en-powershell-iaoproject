@@ -36,6 +36,7 @@ $label_GR.Text = 'LISTE DES GROUPRESOURCES:'
 $form.Controls.Add($label_GR)
 
 $list_ResourceGroupName= Get-AzResourceGroup  | Select-Object ResourceGroupName
+
 $liste1 = New-Object System.Windows.Forms.Combobox
 $liste1.Location = New-Object Drawing.Point (10,100)
 $liste1.Size = New-Object System.Drawing.Size(200,300)
@@ -76,24 +77,27 @@ if ($result -eq [System.Windows.Forms.DialogResult]::OK)
 #CREATION DE RESOURCEGROUP
 #New-AzResourceGroup -Name TutorialResources -Location francecentral
 #$cred = Get-Credential -Message "Enter a username and password for yours virtuals machines." "jack"
+$password = ConvertTo-SecureString "AZERTY1234$!" -AsPlainText -Force
+$user="jack"
+#$secureStringPwd = $password | ConvertTo-SecureString -AsPlainText -Force
+$creds = New-Object System.Management.Automation.PSCredential -ArgumentList ($user, $password)
 
 
-
-#for ($i=1; $i -le $nb_VM ; $i++ )
-#{
-#    $vm3 = @{
-#    ResourceGroupName ='TutorialResources'
-#    Name = "VM" + $i
-#    Location = 'francecentral'
-#    ImageName = 'UbuntuLTS'
-#    PublicIpAddressName = 'tutorialPublicIp'
-#    Credential = $cred
-#    OpenPorts = 3389,22
-#    }
-#    $newVM1 = New-AzVM @vm3
-#    echo $vm3.Name
-#    $newVM1
-#}
+for ($i=1; $i -le $nb_VM ; $i++ )
+{
+    $vm3 = @{
+    ResourceGroupName =$Resource_target.ToString()
+    Name = "VM" + $i +"o"
+    Location = 'francecentral'
+    ImageName = 'UbuntuLTS'
+    #PublicIpAddressName = 'tutorialPublicIp'+$i
+    Credential = $creds
+    OpenPorts = 3389,22
+    }
+    #$newVM1 = New-AzVM @vm3
+    #echo $vm3.Name
+    #$newVM1
+}
 # Vérifications
 
 #$pass = "hello_world" | convertto-securestring                                                         
