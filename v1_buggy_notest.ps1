@@ -105,7 +105,7 @@ if ($result -eq [System.Windows.Forms.DialogResult]::OK)
 #$cred = Get-Credential -Message "Enter a username and password for yours virtuals machines." "jack"
 
 
-$user="Mathieu"
+$user="bob"
 $keyMDP = ( Get-Random ) % 2000
 $password_0 = "BOB_a"+$keyMDP +"$!!"
 
