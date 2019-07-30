@@ -79,6 +79,7 @@ $form.Topmost = $true
 $form.Add_Shown({$textBox.Select()})
 $result = $form.ShowDialog()
 
+
 if ($result -eq [System.Windows.Forms.DialogResult]::OK)
 {
     $nb_VM = $textBox.Text
@@ -98,20 +99,30 @@ if ($result -eq [System.Windows.Forms.DialogResult]::OK)
 }
 Write-Host $Resource_target
 
+
 #CREATION DE RESOURCEGROUP
 #New-AzResourceGroup -Name TutorialResources -Location francecentral
 #$cred = Get-Credential -Message "Enter a username and password for yours virtuals machines." "jack"
-$password = ConvertTo-SecureString "AZERTY1234$!" -AsPlainText -Force
-$user="jack"
+
+
+$user="Mathieu"
+$keyMDP = ( Get-Random ) % 20
+$password_0 = "bibo"+$rand
+
+Write-Host "$password"
+$password = ConvertTo-SecureString $password_0 -AsPlainText -Force
 #$secureStringPwd = $password | ConvertTo-SecureString -AsPlainText -Force
 $creds = New-Object System.Management.Automation.PSCredential -ArgumentList ($user, $password)
 
+#comptage des vm existante pour nom des VM
+ $test=Get-AzVM | Select-Object Name 
 
-for ($i=1; $i -le $nb_VM ; $i++ )
+
+for ($i=$test.Count; $i -le $nb_VM+$test.Count ; $i++ )
 {
     $vm3 = @{
     ResourceGroupName =$Resource_target.ToString()
-    Name = "VM" + $i +"o"
+    Name = "VM" + $i
     Location = 'francecentral'
     ImageName = 'UbuntuLTS'
     #PublicIpAddressName = 'tutorialPublicIp'+$i
@@ -123,6 +134,7 @@ for ($i=1; $i -le $nb_VM ; $i++ )
     $newVM1
 }
 # Vérifications
+
 
 #$pass = "hello_world" | convertto-securestring                                                         
 #$mycred = new-object -typename System.Management.Automation.PSCredential -argumentlist "jack", $pass                
