@@ -40,7 +40,7 @@ $result = $form.ShowDialog()
 
 if ($result -eq [System.Windows.Forms.DialogResult]::OK)
 {
-    $n_bVM = $textBox.Text
+    $nb_VM = $textBox.Text
     $nb_VM
 }
 
@@ -54,7 +54,7 @@ $cred = Get-Credential -Message "Enter a username and password for yours virtual
 for ($i=1; $i -le $nb_VM ; $i++ )
 {
     $vm3 = @{
-    ResourceGroupName = 'TutorialResources'
+    ResourceGroupName ='TutorialResources'
     Name = "VM" + $i
     Location = 'francecentral'
     ImageName = 'UbuntuLTS'
@@ -64,7 +64,7 @@ for ($i=1; $i -le $nb_VM ; $i++ )
     }
     $newVM1 = New-AzVM @vmParams
     echo $vm3.Name
-    $newVM1
+   #$newVM1
 }
 # Vérifications
 
