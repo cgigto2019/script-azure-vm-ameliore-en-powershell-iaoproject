@@ -1,6 +1,8 @@
+# BIBILIOTHEQUE
 Add-Type -AssemblyName System.Windows.Forms
 Add-Type -AssemblyName System.Drawing
 
+# CREATION DE LA BOITE DE DIALOGUE
 $form = New-Object System.Windows.Forms.Form
 $form.Text = 'Data Entry Form'
 $form.Size = New-Object System.Drawing.Size(300,200)
@@ -44,9 +46,8 @@ if ($result -eq [System.Windows.Forms.DialogResult]::OK)
     $nb_VM
 }
 
-
-
-#New-AzResourceGroup -Name TutorialResources -Location francecentral
+#CREATION DE RESOURCEGROUP
+New-AzResourceGroup -Name TutorialResources -Location francecentral
 $cred = Get-Credential -Message "Enter a username and password for yours virtuals machines." "jack"
 
 
@@ -62,9 +63,9 @@ for ($i=1; $i -le $nb_VM ; $i++ )
     Credential = $cred
     OpenPorts = 3389,22
     }
-    $newVM1 = New-AzVM @vmParams
+    $newVM1 = New-AzVM @vm3
     echo $vm3.Name
-   #$newVM1
+    $newVM1
 }
 # Vérifications
 
