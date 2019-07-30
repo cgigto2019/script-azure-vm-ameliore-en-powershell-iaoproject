@@ -97,7 +97,7 @@ if ($result -eq [System.Windows.Forms.DialogResult]::OK)
     $Resource_target=$liste1.SelectedItem
     }
 }
-Write-Host $Resource_target
+
 
 
 #CREATION DE RESOURCEGROUP
@@ -106,10 +106,10 @@ Write-Host $Resource_target
 
 
 $user="Mathieu"
-$keyMDP = ( Get-Random ) % 20
-$password_0 = "bibo"+$rand
+$keyMDP = ( Get-Random ) % 2000
+$password_0 = "BOB_a"+$keyMDP +"$!!"
 
-Write-Host "$password"
+$password_0 >> fichier_mdp_azure.txt
 $password = ConvertTo-SecureString $password_0 -AsPlainText -Force
 #$secureStringPwd = $password | ConvertTo-SecureString -AsPlainText -Force
 $creds = New-Object System.Management.Automation.PSCredential -ArgumentList ($user, $password)
@@ -118,7 +118,8 @@ $creds = New-Object System.Management.Automation.PSCredential -ArgumentList ($us
  $test=Get-AzVM | Select-Object Name 
 
 
-for ($i=$test.Count; $i -le $nb_VM+$test.Count ; $i++ )
+
+for ($i=0; $i -le $nb_VM ; $i++ )
 {
     $vm3 = @{
     ResourceGroupName =$Resource_target.ToString()
@@ -132,6 +133,7 @@ for ($i=$test.Count; $i -le $nb_VM+$test.Count ; $i++ )
     $newVM1 = New-AzVM @vm3
     echo $vm3.Name
     $newVM1
+    echo $i
 }
 # Vérifications
 
